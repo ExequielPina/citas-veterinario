@@ -3,10 +3,11 @@ import React from 'react'
 const Formulario = () => {
   return (
     <div className='md:w-1/2 lg:w-2/5'>
-      <h2 className='font-black text-3xl text-center'>Seguimiento de pacientes</h2>
-      <p className='text-center text-lg mt-5 mb-10'>Añadir {''}<span className='text-cyan-500 font-bold'>pacientes</span></p>
+      <h2 className='font-black text-gray-700 text-3xl text-center mb-10'>Seguimiento de pacientes</h2>
+      
 
       <form className='bg-white shadow-lg rounded-md py-10 px-5 mb-10'>
+        <p className='text-center text-lg mt-3 mb-6 font-bold text-gray-700 uppercase'>Añadir {''}<span className='text-cyan-500 font-bold'>pacientes</span></p>
         <div className='mb-5'>
           <label className='block text-gray-700 uppercase font-bold' htmlFor='mascota'>Nombre de la mascota</label>
           <input className='border-2 w-full p-2 mt-2 placeholder-gray-500 rounded-md' type="text" placeholder='Nombre de la mascota' id='mascota' />
@@ -28,7 +29,7 @@ const Formulario = () => {
         </div>
 
         <div className='mb-5'>
-          <label className='block text-gray-700 uppercase font-bold' htmlFor='sintomas'>Sintomas</label>
+          <label className='block text-gray-700 uppercase font-bold' htmlFor='sintomas'>Síntomas</label>
           <textarea  className='border-2 w-full p-2 mt-2 placeholder-gray-500 rounded-md' id='sintomas' placeholder='Descripción de los síntomas'/>
         </div>
 
