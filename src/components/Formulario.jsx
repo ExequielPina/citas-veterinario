@@ -2,21 +2,35 @@ import { useState, useEffect } from "react"
 
 
 const Formulario = () => {
-  const [nombre, setNombre] = useState('')
-  const [propietario, setPropietario] = useState('')
-  const [email, setEmail] = useState('')
-  const [fecha, setFecha] = useState('')
-  const [sintomas, setSintomas] = useState('')
+  // ** States que leen los valores del formulario **//
+  const [nombre, setNombre] = useState('');
+  const [propietario, setPropietario] = useState('');
+  const [email, setEmail] = useState('');
+  const [fecha, setFecha] = useState('');
+  const [sintomas, setSintomas] = useState('');
+  // ** State para alertas de error en el formulario ** //
+  const [error, setError] = useState(false)
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if ([ nombre, propietario, email, fecha, sintomas ].includes('') ) {
+        setError(true)
+        return;
+    }
+    setError(false)
+  }
 
   return (
     <div className='md:w-1/2 lg:w-2/5 mx-5'>
       <h2 className='font-black text-gray-700 text-3xl text-center mb-10'>Seguimiento de pacientes</h2>
       
 
-      <form className='bg-white shadow-lg rounded-xl py-10 px-5 mb-10'>
+      <form className='bg-white shadow-lg rounded-xl py-10 px-5 mb-10' 
+            onSubmit={handleSubmit} >
          <p className='text-center text-lg mt-3 mb-6 font-bold text-gray-700 uppercase'>Añadir {''}
       <span className='text-cyan-500 font-bold'>pacientes</span> </p>
-
+        {error && <div className="bg-red-800 text-white text-center p-2 uppercase font-bold rounded-xl mb-3"><p>¡Todos los campos son obligatorios!</p></div> }
         <div className='mb-5'>
             <label className='block text-gray-700 uppercase font-bold' htmlFor='nombre'>Nombre de la mascota</label>
             <input className='border-2 w-full p-2 mt-2 placeholder-gray-500 rounded-md' 
