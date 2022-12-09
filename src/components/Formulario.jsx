@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react"
+import Error from "./Error";
 
 
-const Formulario = () => {
+const Formulario = ({ pacientes,  setPacientes, }) => {
   // ** States que leen los valores del formulario **//
   const [nombre, setNombre] = useState('');
   const [propietario, setPropietario] = useState('');
@@ -11,6 +12,14 @@ const Formulario = () => {
   // ** State para alertas de error en el formulario ** //
   const [error, setError] = useState(false)
 
+  //** Función que genera un ID único **/
+  const generarId = () => {
+    const random = Math.random().toString(36).substring(2);
+    const fecha =  Date.now().toString(36)
+    
+    return random + fecha;
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -19,6 +28,25 @@ const Formulario = () => {
         return;
     }
     setError(false)
+
+    //** Creo objeto de paciente con los datos del arreglo del formulario **//
+    const objetoPaciente = {
+      nombre,
+      propietario,
+      email,
+      fecha,
+      sintomas,
+      id: generarId()
+    }
+    setPacientes([...pacientes, objetoPaciente]);
+
+    //** Reiniciar el formulario **/
+    setNombre('')
+    setPropietario('')
+    setEmail('')
+    setFecha('')
+    setSintomas('')
+    
   }
 
   return (
@@ -30,7 +58,7 @@ const Formulario = () => {
             onSubmit={handleSubmit} >
          <p className='text-center text-lg mt-3 mb-6 font-bold text-gray-700 uppercase'>Añadir {''}
       <span className='text-cyan-500 font-bold'>pacientes</span> </p>
-        {error && <div className="bg-red-800 text-white text-center p-2 uppercase font-bold rounded-xl mb-3"><p>¡Todos los campos son obligatorios!</p></div> }
+        { error &&  <Error><p>¡Todos los campos son obligatorios!</p>  </Error>}
         <div className='mb-5'>
             <label className='block text-gray-700 uppercase font-bold' htmlFor='nombre'>Nombre de la mascota</label>
             <input className='border-2 w-full p-2 mt-2 placeholder-gray-500 rounded-md' 
