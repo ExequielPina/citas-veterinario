@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import Error from "./Error";
 
 
-const Formulario = ({ pacientes,  setPacientes, }) => {
+const Formulario = ({ pacientes, setPacientes, pacienteEditar, setPacienteEditar }) => {
   // ** States que leen los valores del formulario **//
   const [nombre, setNombre] = useState('');
   const [propietario, setPropietario] = useState('');
@@ -12,11 +12,22 @@ const Formulario = ({ pacientes,  setPacientes, }) => {
   // ** State para alertas de error en el formulario ** //
   const [error, setError] = useState(false)
 
+  useEffect(() => {
+    if( Object.keys(pacienteEditar).length > 0 ){
+      setNombre(pacienteEditar.nombre)
+      setPropietario(pacienteEditar.propietario)
+      setEmail(pacienteEditar.email)
+      setFecha(pacienteEditar.fecha)
+      setSintomas(pacienteEditar.sintomas)
+    }
+  },[pacienteEditar])
+  
+
   //** Función que genera un ID único **/
   const generarId = () => {
     const random = Math.random().toString(36).substring(2);
     const fecha =  Date.now().toString(36)
-    
+
     return random + fecha;
   }
 
@@ -38,8 +49,24 @@ const Formulario = ({ pacientes,  setPacientes, }) => {
       sintomas,
       id: generarId()
     }
-    setPacientes([...pacientes, objetoPaciente]);
 
+    if (pacienteEditar.id) {
+      //** Editando registro **/
+      objetoPaciente.id = pacienteEditar.id
+
+      const pacientesActualizados = pacientes.map( pacientesState => pacientesState.id ===
+        pacienteEditar.id ? objetoPaciente : pacientesState)
+
+        setPacientes(pacientesActualizados)
+        setPacienteEditar({})
+        
+        
+
+    } else {
+      //** guardando registro **/
+      setPacientes([...pacientes, objetoPaciente]);
+    }
+    
     //** Reiniciar el formulario **/
     setNombre('')
     setPropietario('')
@@ -95,7 +122,8 @@ const Formulario = ({ pacientes,  setPacientes, }) => {
 
         <input className='bg-cyan-500 w-full p-3 text-white uppercase font-bold rounded-lg
                           hover:bg-cyan-600 cursor-pointer transition-all' 
-               type="submit" value="Guardar paciente" />
+               type="submit" 
+               value={ pacienteEditar.id ? "Editar paciente" : "Guardar paciente" }/>
 
       </form>
     </div>

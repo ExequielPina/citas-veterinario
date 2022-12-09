@@ -10,6 +10,8 @@ function App() {
 
   const [pacientes, setPacientes] = useState([]);
 
+  const [pacienteEditar, setPacienteEditar] = useState({});
+
   return (
     <div className="container mx-auto mt-20">
       
@@ -17,11 +19,14 @@ function App() {
       <div className="mt-12 md:flex">
         <Formulario
             pacientes = {pacientes}
+            pacienteEditar={pacienteEditar}
             setPacientes = {setPacientes}
+            setPacienteEditar={setPacienteEditar}
         />
         
         <ListadoPacientes
           pacientes={pacientes}
+          setPacienteEditar={setPacienteEditar}
         />
       </div>
       

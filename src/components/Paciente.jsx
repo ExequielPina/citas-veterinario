@@ -1,6 +1,6 @@
 
 
-const Paciente = ({paciente}) => {
+const Paciente = ({paciente, setPacienteEditar}) => {
   
   const { nombre, propietario, email, fecha, sintomas } = paciente
 
@@ -12,6 +12,20 @@ const Paciente = ({paciente}) => {
         <p className="block text-gray-700 uppercase font-bold mb-3">email: {''} <span className="font-normal normal-case">{email}</span></p>
         <p className="block text-gray-700 uppercase font-bold mb-3">Fecha de alta: {''} <span className="font-normal normal-case">{fecha}</span></p>
         <p className="block text-gray-700 uppercase font-bold mb-3">Síntomas: {''} <span className="font-normal normal-case">{sintomas}</span></p>
+
+        <div>
+          <button className="bg-cyan-500 px-10 py-2 mt-5 mr-10 text-white uppercase font-bold rounded-lg
+                          hover:bg-cyan-600 cursor-pointer transition-all"        
+                  type="button"
+                  onClick={() => setPacienteEditar(paciente)} 
+                  >Editar
+                  
+                  </button>
+          <button className="bg-red-500 px-10 py-2 mt-5 text-white uppercase font-bold rounded-lg
+                          hover:bg-red-800 cursor-pointer transition-all" 
+                  type="button">Eliminar
+                  </button>
+        </div>
       </div>
   )
 }
