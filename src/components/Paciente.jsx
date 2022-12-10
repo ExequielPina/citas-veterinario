@@ -1,12 +1,21 @@
 
 
-const Paciente = ({paciente, setPacienteEditar}) => {
+  const Paciente = ({paciente, setPacienteEditar, eliminarPaciente}) => {
   
-  const { nombre, propietario, email, fecha, sintomas } = paciente
+  const { nombre, propietario, email, fecha, sintomas, id } = paciente
 
+  const handleEliminar = () => {
+    const respuesta = confirm('¿Deseas eliminar este paciente?')
+    if(respuesta) {
+      eliminarPaciente(id)
+    }
+  }
+
+
+  
   return (
     <div className="bg-white shadow-lg m-3 px-5 py-10 rounded-xl mt-10">
-      <p className="text-center text-lg mt-4  mb-6 font-bold text-gray-700 uppercase">Gestión de <span className="text-cyan-500 font-bold">pacientes y citas</span> </p>
+      <p className="text-center text-lg mt-4  mb-6 font-bold text-gray-700 uppercase">ficha de: {''} <span className="text-cyan-500 font-bold">{nombre}</span> </p>
         <p className="block text-gray-700 uppercase font-bold mb-3">Nombre de la mascota: {''} <span className="font-normal normal-case">{nombre}</span></p>
         <p className="block text-gray-700 uppercase font-bold mb-3">Propietario: {''} <span className="font-normal normal-case">{propietario}</span></p>
         <p className="block text-gray-700 uppercase font-bold mb-3">email: {''} <span className="font-normal normal-case">{email}</span></p>
@@ -15,16 +24,18 @@ const Paciente = ({paciente, setPacienteEditar}) => {
 
         <div>
           <button className="bg-cyan-500 px-10 py-2 mt-5 mr-10 text-white uppercase font-bold rounded-lg
-                          hover:bg-cyan-600 cursor-pointer transition-all"        
+                             hover:bg-cyan-600 cursor-pointer transition-all"        
                   type="button"
                   onClick={() => setPacienteEditar(paciente)} 
-                  >Editar
-                  
-                  </button>
+                  >Editar                
+          </button>
+
           <button className="bg-red-500 px-10 py-2 mt-5 text-white uppercase font-bold rounded-lg
-                          hover:bg-red-800 cursor-pointer transition-all" 
-                  type="button">Eliminar
-                  </button>
+                             hover:bg-red-800 cursor-pointer transition-all" 
+                  type="button"
+                  onClick={handleEliminar}
+                  >Eliminar              
+          </button>
         </div>
       </div>
   )
